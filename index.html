@@ -66,7 +66,7 @@ button:hover {
     box-shadow: 0 0 25px #00ffff;
 }
 
-/* 动态提示框 */
+/* 动态状态提示 */
 .status {
     margin-top: 20px;
     font-size: 18px;
@@ -124,18 +124,27 @@ var qqList = [
     {qq:"574565958", label:"客服6（备用）"}
 ];
 
-// 跳转QQ
+// 跳转QQ逻辑
 function jumpQQ(){
     var status = document.getElementById("status");
-    status.textContent = "正在分配客服，请稍等...";
-    
-    // 随机选择一个客服
-    var index = Math.floor(Math.random()*qqList.length);
-    var selected = qqList[index];
+    status.textContent = "正在分配客服，请稍等";
+    var dots = 0;
 
-    // 2秒后跳转
+    // 动态点点点动画
+    var interval = setInterval(function(){
+        dots = (dots+1)%4;
+        status.textContent = "正在分配客服，请稍等" + ".".repeat(dots);
+    },500);
+
+    // 2秒后分配客服
     setTimeout(function(){
-        status.textContent = "已分配: " + selected.label + "，正在跳转QQ...";
+        clearInterval(interval);
+        // 随机选择一个客服
+        var index = Math.floor(Math.random()*qqList.length);
+        var selected = qqList[index];
+        status.textContent = "已分配: " + selected.label + "，请先添加好友，等待通过后即可咨询";
+
+        // 打开QQ添加好友页面
         window.location.href = "https://wpa.qq.com/msgrd?v=3&uin=" + selected.qq + "&site=qq&menu=yes";
     },2000);
 }
