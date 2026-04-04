@@ -11,49 +11,86 @@ body{
     font-family:Arial;
     background:#000;
     color:#fff;
-    text-align:center;
 }
 
 /* 标题 */
 .title{
+    text-align:center;
     margin-top:20px;
     font-size:26px;
     color:#00ffcc;
     text-shadow:0 0 10px #00ffcc;
 }
 
-/* 提示 */
-.tip{
-    color:red;
-    margin:10px;
-    animation:flash 1s infinite;
-}
-
-/* 二维码网格 */
+/* 列表 */
 .grid{
-    display:grid;
-    grid-template-columns: repeat(2,1fr);
-    gap:20px;
     padding:20px;
 }
 
-/* 单个客服 */
+/* 单项 */
 .item{
+    display:flex;
+    align-items:center;
+    justify-content:center;
     background:#111;
+    margin-bottom:15px;
     padding:15px;
-    border-radius:10px;
-    box-shadow:0 0 10px #00ffcc;
+    border-radius:12px;
+    box-shadow:0 0 12px #00ffcc;
 }
 
-/* 二维码图片 */
-.item img{
-    width:120px;
-    height:120px;
+/* 左侧文字 */
+.textBox{
+    margin-right:20px;
 }
 
-/* 文字 */
-.item p{
-    margin-top:10px;
+/* 主提示 */
+.mainText{
+    color:#ff00ff;
+    font-size:18px;
+    text-shadow:0 0 10px #ff00ff;
+}
+
+/* 副提示 */
+.subText{
+    font-size:14px;
+    margin-top:5px;
+    color:#00ffcc;
+}
+
+/* 二维码 */
+.qr{
+    width:130px;
+    height:130px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* 放大层 */
+.popup{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+/* 放大图片 */
+.popup img{
+    width:260px;
+    height:260px;
+}
+
+/* 提示文字 */
+.popupText{
+    margin-top:15px;
+    color:#00ffcc;
+    animation:flash 1s infinite;
 }
 
 /* 动画 */
@@ -62,52 +99,107 @@ body{
     50%{opacity:0.3;}
     100%{opacity:1;}
 }
+
+/* 手机适配 */
+@media(max-width:600px){
+    .item{
+        flex-direction:column;
+    }
+    .textBox{
+        margin:0 0 10px 0;
+        text-align:center;
+    }
+}
 </style>
 </head>
 
 <body>
 
-<div class="title">
-联系客服（扫码添加）
-</div>
-
-<div class="tip">
-如提示风险请继续添加
-</div>
+<div class="title">客服中心</div>
 
 <div class="grid">
 
 <div class="item">
-<img src="q1.png">
-<p>客服1</p>
+    <div class="textBox">
+        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
+        <div class="subText">📱 长按二维码识别添加客服</div>
+        <div class="subText">无法添加请尝试其他二维码</div>
+    </div>
+    <img src="q1.png" class="qr" onclick="show(this)">
 </div>
 
 <div class="item">
-<img src="q2.png">
-<p>客服2</p>
+    <div class="textBox">
+        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
+        <div class="subText">📱 长按二维码识别添加客服</div>
+        <div class="subText">无法添加请尝试其他二维码</div>
+    </div>
+    <img src="q2.png" class="qr" onclick="show(this)">
 </div>
 
 <div class="item">
-<img src="q3.png">
-<p>客服3</p>
+    <div class="textBox">
+        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
+        <div class="subText">📱 长按二维码识别添加客服</div>
+        <div class="subText">无法添加请尝试其他二维码</div>
+    </div>
+    <img src="q3.png" class="qr" onclick="show(this)">
 </div>
 
 <div class="item">
-<img src="q4.png">
-<p>客服4</p>
+    <div class="textBox">
+        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
+        <div class="subText">📱 长按二维码识别添加客服</div>
+        <div class="subText">无法添加请尝试其他二维码</div>
+    </div>
+    <img src="q4.png" class="qr" onclick="show(this)">
 </div>
 
 <div class="item">
-<img src="q5.png">
-<p>客服5</p>
+    <div class="textBox">
+        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
+        <div class="subText">📱 长按二维码识别添加客服</div>
+        <div class="subText">无法添加请尝试其他二维码</div>
+    </div>
+    <img src="q5.png" class="qr" onclick="show(this)">
 </div>
 
 <div class="item">
-<img src="q6.png">
-<p>客服6</p>
+    <div class="textBox">
+        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
+        <div class="subText">📱 长按二维码识别添加客服</div>
+        <div class="subText">无法添加请尝试其他二维码</div>
+    </div>
+    <img src="q6.png" class="qr" onclick="show(this)">
 </div>
 
 </div>
+
+<!-- 放大层 -->
+<div class="popup" id="popup" onclick="hide()">
+    <img id="big">
+    <div class="popupText">长按二维码识别添加客服</div>
+</div>
+
+<script>
+// 点击放大
+function show(el){
+    document.getElementById("popup").style.display="flex";
+    document.getElementById("big").src=el.src;
+}
+
+// 关闭
+function hide(){
+    document.getElementById("popup").style.display="none";
+}
+
+// 进入提示
+window.onload=function(){
+    setTimeout(()=>{
+        alert("请长按二维码识别添加客服");
+    },500);
+}
+</script>
 
 </body>
 </html>
