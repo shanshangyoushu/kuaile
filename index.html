@@ -13,57 +13,81 @@ body{
     color:#fff;
 }
 
-/* 标题 */
 .title{
     text-align:center;
     margin-top:20px;
-    font-size:26px;
+    font-size:24px;
     color:#00ffcc;
     text-shadow:0 0 10px #00ffcc;
 }
 
-/* 列表 */
 .grid{
-    padding:20px;
+    padding:15px;
 }
 
-/* 单项 */
 .item{
     display:flex;
     align-items:center;
     justify-content:center;
     background:#111;
-    margin-bottom:15px;
-    padding:15px;
-    border-radius:12px;
-    box-shadow:0 0 12px #00ffcc;
+    margin-bottom:12px;
+    padding:12px;
+    border-radius:10px;
+    box-shadow:0 0 10px #00ffcc;
 }
 
-/* 左侧文字 */
 .textBox{
-    margin-right:20px;
+    margin-right:15px;
 }
 
-/* 主提示 */
 .mainText{
     color:#ff00ff;
-    font-size:18px;
-    text-shadow:0 0 10px #ff00ff;
+    font-size:16px;
 }
 
-/* 副提示 */
 .subText{
-    font-size:14px;
+    font-size:13px;
     margin-top:5px;
     color:#00ffcc;
 }
 
-/* 二维码 */
 .qr{
-    width:130px;
-    height:130px;
+    width:120px;
+    height:120px;
     border-radius:6px;
     cursor:pointer;
+}
+
+.warnBox{
+    margin-left:15px;
+    color:#ff0000;
+    font-size:13px;
+    cursor:pointer;
+    animation:blink 1s infinite;
+}
+
+@keyframes blink{
+    0%{opacity:1;}
+    50%{opacity:0.3;}
+    100%{opacity:1;}
+}
+
+/* 手机优化 */
+@media(max-width:600px){
+    .item{
+        flex-direction:column;
+    }
+    .textBox{
+        margin:0 0 8px 0;
+        text-align:center;
+    }
+    .qr{
+        width:160px;
+        height:160px;
+    }
+    .warnBox{
+        margin-top:8px;
+    }
 }
 
 /* 放大层 */
@@ -80,35 +104,50 @@ body{
     flex-direction:column;
 }
 
-/* 放大图片 */
 .popup img{
     width:260px;
-    height:260px;
 }
 
-/* 提示文字 */
 .popupText{
     margin-top:15px;
     color:#00ffcc;
     animation:flash 1s infinite;
 }
 
-/* 动画 */
 @keyframes flash{
     0%{opacity:1;}
     50%{opacity:0.3;}
     100%{opacity:1;}
 }
 
-/* 手机适配 */
-@media(max-width:600px){
-    .item{
-        flex-direction:column;
-    }
-    .textBox{
-        margin:0 0 10px 0;
-        text-align:center;
-    }
+/* 弹窗 */
+.modal{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modalBox{
+    background:#111;
+    padding:20px;
+    border-radius:10px;
+    width:80%;
+    max-width:300px;
+    text-align:center;
+}
+
+.btn{
+    margin-top:15px;
+    padding:10px;
+    background:#00ffcc;
+    border:none;
+    border-radius:6px;
 }
 </style>
 </head>
@@ -117,87 +156,74 @@ body{
 
 <div class="title">客服中心</div>
 
-<div class="grid">
+<div class="grid" id="list">
 
-<div class="item">
-    <div class="textBox">
-        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
-        <div class="subText">📱 长按二维码识别添加客服</div>
-        <div class="subText">无法添加请尝试其他二维码</div>
+<!-- 6个二维码 -->
+<script>
+for(let i=1;i<=6;i++){
+    document.write(`
+    <div class="item" id="item${i}">
+        <div class="textBox">
+            <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
+            <div class="subText">📱 长按二维码识别添加客服</div>
+            <div class="subText">无法添加请尝试其他二维码</div>
+        </div>
+
+        <img src="q${i}.png" class="qr" onclick="show(this)">
+
+        <div class="warnBox" onclick="openModal()">
+            安全提醒<br>点击了解详情<br>继续添加
+        </div>
     </div>
-    <img src="q1.png" class="qr" onclick="show(this)">
-</div>
-
-<div class="item">
-    <div class="textBox">
-        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
-        <div class="subText">📱 长按二维码识别添加客服</div>
-        <div class="subText">无法添加请尝试其他二维码</div>
-    </div>
-    <img src="q2.png" class="qr" onclick="show(this)">
-</div>
-
-<div class="item">
-    <div class="textBox">
-        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
-        <div class="subText">📱 长按二维码识别添加客服</div>
-        <div class="subText">无法添加请尝试其他二维码</div>
-    </div>
-    <img src="q3.png" class="qr" onclick="show(this)">
-</div>
-
-<div class="item">
-    <div class="textBox">
-        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
-        <div class="subText">📱 长按二维码识别添加客服</div>
-        <div class="subText">无法添加请尝试其他二维码</div>
-    </div>
-    <img src="q4.png" class="qr" onclick="show(this)">
-</div>
-
-<div class="item">
-    <div class="textBox">
-        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
-        <div class="subText">📱 长按二维码识别添加客服</div>
-        <div class="subText">无法添加请尝试其他二维码</div>
-    </div>
-    <img src="q5.png" class="qr" onclick="show(this)">
-</div>
-
-<div class="item">
-    <div class="textBox">
-        <div class="mainText">嘴炮记者勿扰<br>客服不闲聊</div>
-        <div class="subText">📱 长按二维码识别添加客服</div>
-        <div class="subText">无法添加请尝试其他二维码</div>
-    </div>
-    <img src="q6.png" class="qr" onclick="show(this)">
-</div>
+    `)
+}
+</script>
 
 </div>
 
-<!-- 放大层 -->
+<!-- 放大 -->
 <div class="popup" id="popup" onclick="hide()">
     <img id="big">
     <div class="popupText">长按二维码识别添加客服</div>
 </div>
 
+<!-- 弹窗 -->
+<div class="modal" id="modal">
+    <div class="modalBox">
+        <div>如遇风险提示请继续操作</div>
+        <button class="btn" onclick="closeModal()">我已了解</button>
+    </div>
+</div>
+
 <script>
-// 点击放大
+// 设备检测
+function isMobile(){
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+// 💻 电脑只显示前2个
+if(!isMobile()){
+    for(let i=3;i<=6;i++){
+        document.getElementById("item"+i).style.display="none";
+    }
+}
+
+// 放大
 function show(el){
     document.getElementById("popup").style.display="flex";
     document.getElementById("big").src=el.src;
 }
 
-// 关闭
 function hide(){
     document.getElementById("popup").style.display="none";
 }
 
-// 进入提示
-window.onload=function(){
-    setTimeout(()=>{
-        alert("请长按二维码识别添加客服");
-    },500);
+function openModal(){
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
 }
 </script>
 
